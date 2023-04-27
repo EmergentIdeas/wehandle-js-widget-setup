@@ -17,9 +17,7 @@ function assignData(dest, src) {
 		return
 	}
 	for(let key in src) {
-		if(!dest[key]) {
-			dest[key] = src[key]
-		}
+		dest[key] = src[key]
 	}
 }
 
@@ -62,7 +60,9 @@ mkdir.on('close', function(code) {
         "/less/components.less",
         "/public"
     ]
-	destPackage.main = '/client-js/index.js'
+	destPackage.main = 'client-js/index.js'
+
+	delete destPackage.dependencies['webhandle-js-widget-setup']
 	
 	fs.writeFileSync(path.resolve(cwd, 'package.json'), JSON.stringify(destPackage, null, "\t"))
 	spawn('sed', ['-i', `s/change-me/${destPackageName}/g`, 'dev.config.js'])
