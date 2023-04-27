@@ -4,6 +4,25 @@ const fs = require('fs')
 const { spawn } = require('child_process')
 const mkdir = spawn('mkdir', ['-p', 'public/css', 'public/js', 'public/img'])
 console.log('creating directories')
+
+function ensureObjectExists(parent, key) {
+	if(!parent[key]) {
+		parent[key] = {}
+	}
+	return parent[key]
+}
+
+function assignData(dest, src) {
+	if(!dest || !src) {
+		return
+	}
+	for(let key in src) {
+		if(!dest[key]) {
+			dest[key] = src[key]
+		}
+	}
+}
+
 mkdir.on('close', function(code) {
 	let packageDir = path.resolve(path.dirname(require.main.filename), '..')
 	let cwd = process.cwd()
@@ -24,38 +43,27 @@ mkdir.on('close', function(code) {
 	let destPackage = JSON.parse(fs.readFileSync(path.resolve(cwd, 'package.json')).toString())
 	let destPackageName = destPackage.name
 	
-	if(!destPackage.devDependencies) {
-		destPackage.devDependencies = {}
-	}
-	if(!destPackage.dependencies) {
-		destPackage.dependencies = {}
-	}
-	if(!destPackage.scripts) {
-		destPackage.scripts = {}
-	}
-	if(!destPackage.browserify) {
-		destPackage.browserify = {}
-	}
+	ensureObjectExists(destPackage, 'devDependencies')
+	ensureObjectExists(destPackage, 'dependencies')
+	ensureObjectExists(destPackage, 'scripts')
+	ensureObjectExists(destPackage, 'browserify')
+
+	assignData(destPackage.devDependencies, buildPackage.devDependencies)
+
+	// This is on purpose assigning dependencies to dev dependencies so that they don't
+	// make it into a plugin
+	assignData(destPackage.devDependencies, buildPackage.dependencies)
+
+	assignData(destPackage.browserify, buildPackage.browserify)
+	assignData(destPackage.scripts, buildPackage.scripts)
+
+	destPackage.files = [
+        "/client-js/index.js",
+        "/less/components.less",
+        "/public"
+    ]
+	destPackage.main = '/client-js/index.js'
 	
-	for(let key in buildPackage.devDependencies) {
-		if(!destPackage.devDependencies[key]) {
-			destPackage.devDependencies[key] = buildPackage.devDependencies[key]
-		}
-	}
-	for(let key in buildPackage.dependencies) {
-		if(!destPackage.dependencies[key]) {
-			destPackage.dependencies[key] = buildPackage.dependencies[key]
-		}
-	}
-	
-	for(let key in buildPackage.browserify) {
-		if(!destPackage.browserify[key]) {
-			destPackage.browserify[key] = buildPackage.browserify[key]
-		}
-	}
-	for(let key in buildPackage.scripts) {
-		destPackage.scripts[key] = buildPackage.scripts[key]
-	}
 	fs.writeFileSync(path.resolve(cwd, 'package.json'), JSON.stringify(destPackage, null, "\t"))
 	spawn('sed', ['-i', `s/change-me/${destPackageName}/g`, 'dev.config.js'])
 	
