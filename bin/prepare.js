@@ -24,7 +24,7 @@ function assignData(dest, src) {
 
 mkdir.on('close', function(code) {
 	let packageDir = url.fileURLToPath(new URL('.', import.meta.url))
-	packageDir = path.resolve(packageDir, '../../..')
+	packageDir = path.resolve(packageDir, '..')
 	let cwd = process.cwd()
 	// console.log('package dir: ' + packageDir)
 	// console.log('cwd: ' + cwd)
