@@ -1,13 +1,13 @@
 {
   "name": "webhandle-js-widget-setup",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "setup a project to develop a js widget",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "less-build": "npx lessc --source-map --source-map-include-source less/pages.less public/css/pages.css",
     "less-compress": "npx uglifycss public/css/pages.css > public/css/pages.min.css",
-	"client-js-build": "npx webpack --config pages.webpack.cjs",
+    "client-js-build": "npx webpack --config pages.webpack.cjs",
     "client-js-compress": "npx uglifyjs public/js/pages.cjs -o public/js/pages.min.cjs -c --source-map url=public/js/pages.min.cjs.map",
     "client-js-browserify-build": "npm run client-js-pages-browserify-build",
     "client-js-pages-browserify build": "npx browserify client-js/pages.cjs --debug | npx exorcist public/js/pages.cjs.map > public/js/pages.cjs",
@@ -42,7 +42,7 @@
     "parallelshell": "3.0.1",
     "tripartite": "^1.1.1",
     "uglify-js": "^3.17.4",
-    "webhandle": "^1.0.31",
+    "webhandle": "^1.0.32",
     "webpack-cli": "^5.1.4"
   },
   "browserify": {

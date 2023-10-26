@@ -36,7 +36,8 @@ mkdir.on('close', function(code) {
 	spawn('cp', ['-rn', path.resolve(packageDir, 'build'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'test'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'utils'), path.resolve(cwd)])
-	spawn('cp', ['-rn', path.resolve(packageDir, 'dev.config.js'), path.resolve(cwd)])
+	spawn('cp', ['-rn', path.resolve(packageDir, 'dev.config.cjs'), path.resolve(cwd)])
+	spawn('cp', ['-rn', path.resolve(packageDir, 'pages.webpack.cjs'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'web-server.js'), path.resolve(cwd)])
 	
 	let buildPackage = JSON.parse(fs.readFileSync(path.resolve(packageDir, 'package.json')).toString())
@@ -63,11 +64,12 @@ mkdir.on('close', function(code) {
         "/public"
     ]
 	destPackage.main = 'client-js/index.js'
+	destPackage.type = 'module'
 
 	delete destPackage.dependencies['webhandle-js-widget-setup']
 	
 	fs.writeFileSync(path.resolve(cwd, 'package.json'), JSON.stringify(destPackage, null, "\t"))
-	spawn('sed', ['-i', `s/change-me/${destPackageName}/g`, 'dev.config.js'])
+	spawn('sed', ['-i', `s/change-me/${destPackageName}/g`, 'dev.config.cjs'])
 	
 	const npmInstall = spawn('npm', ['install'])
 	npmInstall.on('close', function(code) {
