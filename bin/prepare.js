@@ -1,7 +1,8 @@
 #! /usr/bin/env node
-let path = require('path')
-const fs = require('fs')
-const { spawn } = require('child_process')
+import path from 'path'
+import fs from 'fs'
+import { spawn } from 'child_process'
+import * as url from 'url';
 const mkdir = spawn('mkdir', ['-p', 'public/css', 'public/js', 'public/img'])
 console.log('creating directories')
 
@@ -22,7 +23,8 @@ function assignData(dest, src) {
 }
 
 mkdir.on('close', function(code) {
-	let packageDir = path.resolve(path.dirname(require.main.filename), '..')
+	let packageDir = url.fileURLToPath(new URL('.', import.meta.url))
+	packageDir = path.resolve(packageDir, '../../..')
 	let cwd = process.cwd()
 	// console.log('package dir: ' + packageDir)
 	// console.log('cwd: ' + cwd)
