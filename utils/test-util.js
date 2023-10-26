@@ -1,5 +1,3 @@
-const multiply = function(o, t) {
+export default function multiply(o, t) {
 	return o * t
 }
-
-module.exports = multiply

@@ -1,5 +1,5 @@
 
-function escapeAttributeValue(s, preserveCR) {
+export default function escapeAttributeValue(s, preserveCR) {
 	preserveCR = preserveCR ? '&#13;' : '\n';
 	return ('' + s) /* Forces the conversion to string. */
 		.replace(/&/g, '&amp;') /* This MUST be the 1st replacement. */
@@ -15,5 +15,3 @@ function escapeAttributeValue(s, preserveCR) {
 		.replace(/\r\n/g, preserveCR) /* Must be before the next replacement. */
 		.replace(/[\r\n]/g, preserveCR)
 }
-
-module.exports = escapeAttributeValue

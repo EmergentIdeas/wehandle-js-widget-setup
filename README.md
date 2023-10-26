@@ -4,7 +4,7 @@ Sets up an environment to create and test js widgets
 
 Install like:
 
-`npm i webhandle-js-widget-setup`
+`npm i --save-dev webhandle-js-widget-setup`
 `npx webhandle-js-widget-setup`
 
 To start the environment use either:

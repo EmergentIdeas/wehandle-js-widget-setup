@@ -1,7 +1,6 @@
-require('mocha')
-var expect = require('chai').expect
-var assert = require('chai').assert
-const tu = require('../utils/test-util')
+import mocha from "mocha";
+import {assert} from 'chai'
+import tu from '../utils/test-util.js'
 
 describe("a basic test which shows tests are working", function() {
 	

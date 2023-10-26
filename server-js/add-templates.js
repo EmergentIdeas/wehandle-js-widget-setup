@@ -1,14 +1,13 @@
-let tripartite = require('tripartite')
-const webhandle = require('webhandle')
+import webhandle from "webhandle"
+import escapeAttributeValue from './utils/escape-attribute-value.js'
 
-let templates = {}
+let templates = {};
 
-let loadTemplates = function() {
+export default function loadTemplates() {
 	webhandle.templateLoaders.push((name, callback) => {
 		callback(templates[name])
 	})
 
-	let escapeAttributeValue = require('./utils/escape-attribute-value')
 	templates['escAttr'] = (val) => {
 		if (val && typeof val == 'string') {
 			return escapeAttributeValue(val, true)
@@ -92,4 +91,3 @@ let loadTemplates = function() {
 	}
 }
 
-module.exports = loadTemplates
