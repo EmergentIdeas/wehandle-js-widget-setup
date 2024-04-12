@@ -1,6 +1,6 @@
 {
   "name": "webhandle-js-widget-setup",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "setup a project to develop a js widget",
   "main": "index.js",
   "type": "module",
@@ -40,6 +40,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "onchange": "^3.2.1",
     "parallelshell": "3.0.1",
+    "raw-loader": "^4.0.2",
     "tripartite": "^1.1.1",
     "uglify-js": "^3.17.4",
     "webhandle": "^1.0.32",
