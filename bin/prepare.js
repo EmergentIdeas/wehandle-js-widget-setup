@@ -29,6 +29,7 @@ mkdir.on('close', function(code) {
 	// console.log('package dir: ' + packageDir)
 	// console.log('cwd: ' + cwd)
 	spawn('cp', ['-rn', path.resolve(packageDir, 'client-js'), path.resolve(cwd)])
+	spawn('cp', ['-rn', path.resolve(packageDir, 'client-lib'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'server-js'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'less'), path.resolve(cwd)])
 	spawn('cp', ['-rn', path.resolve(packageDir, 'views'), path.resolve(cwd)])
@@ -59,11 +60,11 @@ mkdir.on('close', function(code) {
 	assignData(destPackage.scripts, buildPackage.scripts)
 
 	destPackage.files = [
-        "/client-js/index.js",
+        "/client-lib",
         "/less/components.less",
-        "/public"
+        "/public/js/index*"
     ]
-	destPackage.main = 'client-js/index.js'
+	destPackage.main = 'client-lib/index.js'
 	destPackage.type = 'module'
 
 	delete destPackage.dependencies['webhandle-js-widget-setup']
