@@ -1,6 +1,6 @@
 {
   "name": "webhandle-js-widget-setup",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "setup a project to develop a js widget",
   "main": "index.js",
   "type": "module",
@@ -29,7 +29,7 @@
     "exorcist": "^2.0.0",
     "express": "^4.17.1",
     "file-sink": "^1.0.4",
-    "filter-log": "0.0.5",
+    "filter-log": "^1.0.0",
     "input-value-injector": "^1.0.8",
     "jsdoc": "^3.6.11",
     "less": "^3.10.3",
